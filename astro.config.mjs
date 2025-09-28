@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: '',
+	site: 'https://ai-news-xhr.pages.dev',
 	adapter: cloudflare(),
 	integrations: [mdx(), sitemap()],
 });
