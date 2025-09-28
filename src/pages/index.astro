@@ -1,0 +1,26 @@
+---
+// Index page: lists available daily reports. Astro loads Markdown files
+// automatically when they are placed in the `src/pages` directory. The glob
+// import below grabs all Markdown files in the `reports` folder and sorts
+// them by publication date.
+const posts = await Astro.glob('../reports/*.md');
+posts.sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+---
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Coding Agent Updates</title>
+  </head>
+  <body>
+    <h1>AI Coding Agent Updates</h1>
+    <p>This site hosts daily reports on the latest updates to coding agents such as Claude Code, Codex CLI and Gemini CLI. New reports appear here automatically.</p>
+    <ul>
+      {posts.map(({ frontmatter, url }) => (
+        <li>
+          <a href={url}>{frontmatter.title}</a> – {new Date(frontmatter.pubDate).toLocaleDateString('en-US')}
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
