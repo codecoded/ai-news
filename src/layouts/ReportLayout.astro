@@ -1,0 +1,100 @@
+---
+/**
+ * A simple layout for daily reports.
+ *
+ * This layout wraps markdown content in a structured HTML page and adds
+ * basic styles to improve readability over the plain markdown rendering.
+ * To use it, reference this layout in the frontmatter of your report
+ * markdown files, e.g. `layout: ../../layouts/ReportLayout.astro`.
+ */
+export interface Props {
+  /** The report title to display at the top of the page. */
+  title: string;
+  /** Optional description for the report. */
+  description?: string;
+  /** Optional publication date. */
+  pubDate?: string;
+}
+
+const { title, description, pubDate } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Basic styles for typography and layout. Feel free to expand or
+         replace these with a CSS framework such as Tailwind or your own
+         stylesheet. -->
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        margin: 2rem;
+        line-height: 1.6;
+        color: #1a1a1a;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+      em {
+        color: #555;
+      }
+      time {
+        display: block;
+        margin-bottom: 1rem;
+        color: #555;
+      }
+      ul, ol {
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+      th, td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      th {
+        background-color: #f8f8f8;
+      }
+      a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>{title}</h1>
+        {pubDate && <time datetime={pubDate}>Published: {pubDate}</time>}
+        {description && <p><em>{description}</em></p>}
+      </header>
+      <slot />
+    </article>
+  </body>
+</html>
